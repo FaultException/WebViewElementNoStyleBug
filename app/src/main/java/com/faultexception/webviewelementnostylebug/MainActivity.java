@@ -42,20 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public WebResourceResponse shouldInterceptRequest(WebView view, String url) {
                 if (url.equals("file:///test.html")) {
                     try {
-                        InputStream stream = getAssets().open("test.html");
-                        StringBuilder originalHtml = new StringBuilder();
-                        try {
-                            BufferedReader in = new BufferedReader(new InputStreamReader(stream));
-                            String line;
-                            while ((line = in.readLine()) != null) {
-                                originalHtml.append(line).append("\n");
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            return null;
-                        }
-
-                        return new WebResourceResponse(null, "UTF-8", new ByteArrayInputStream(originalHtml.toString().getBytes("UTF-8")));
+                        return new WebResourceResponse(null, "UTF-8", getAssets().open("test.html"));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
